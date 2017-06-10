@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cad_categoria"
+        android:title="Cadastrar Categorias"
+        android:orderInCategory="100"/>
+
+    <item
+        android:id="@+id/cad_credito"
+        android:title="Cadastrar Créditos"
+        android:orderInCategory="101"/>
+
+    <item
+        android:id="@+id/cad_debito"
+        android:title="Cadastrar Débitos"
+        android:orderInCategory="102"/>
+
+    <item
+        android:id="@+id/show_credito"
+        android:title="Visualizar Créditos"
+        android:orderInCategory="103"/>
+
+    <item
+        android:id="@+id/show_debito"
+        android:title="Visualizar Débitos"
+        android:orderInCategory="104"/>
+
+    <item
+        android:id="@+id/show_relatorio_final"
+        android:title="Visualizar Relatório Final"
+        android:orderInCategory="104"/>
+
+</menu>
