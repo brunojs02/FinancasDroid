@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/cad_categoria"
-        android:title="Cadastrar Categorias"
+        android:id="@+id/categoria_menu"
+        android:title="@string/menu_categoria"
         android:orderInCategory="100"/>
 
     <item
-        android:id="@+id/cad_credito"
-        android:title="Cadastrar Créditos"
+        android:id="@+id/credito_menu"
+        android:title="@string/menu_credito"
         android:orderInCategory="101"/>
 
     <item
-        android:id="@+id/cad_debito"
-        android:title="Cadastrar Débitos"
+        android:id="@+id/debito_menu"
+        android:title="@string/menu_debito"
         android:orderInCategory="102"/>
 
     <item
-        android:id="@+id/show_credito"
-        android:title="Visualizar Créditos"
+        android:id="@+id/relatorio_menu"
+        android:title="@string/menu_relatorio"
         android:orderInCategory="103"/>
-
-    <item
-        android:id="@+id/show_debito"
-        android:title="Visualizar Débitos"
-        android:orderInCategory="104"/>
-
-    <item
-        android:id="@+id/show_relatorio_final"
-        android:title="Visualizar Relatório Final"
-        android:orderInCategory="104"/>
 
 </menu>

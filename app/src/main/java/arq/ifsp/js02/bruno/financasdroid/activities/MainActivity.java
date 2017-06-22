@@ -1,9 +1,12 @@
-package arq.ifsp.js02.bruno.financasdroid;
+package arq.ifsp.js02.bruno.financasdroid.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import arq.ifsp.js02.bruno.financasdroid.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,28 +24,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent it;
         switch (item.getItemId()){
-            case R.id.cad_categoria:
-                //cadastrar categorias
+            case R.id.categoria_menu:
+                //gerenciar categorias_list
+                it = new Intent(MainActivity.this, CategoriaActivity.class);
+                startActivity(it);
                 break;
 
-            case R.id.cad_credito:
+            case R.id.credito_menu:
                 //cadastrar creditos
                 break;
 
-            case R.id.cad_debito:
+            case R.id.debito_menu:
                 //cadastrar debitos
                 break;
 
-            case R.id.show_credito:
-                //mostrar creditos
-                break;
-
-            case R.id.show_debito:
-                //mostrar debitos
-                break;
-
-            case R.id.show_relatorio_final:
+            case R.id.relatorio_menu:
                 //mostrar relatório final
                 break;
         }
