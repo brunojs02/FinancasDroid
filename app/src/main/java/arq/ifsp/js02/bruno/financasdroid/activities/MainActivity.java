@@ -32,12 +32,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
                 break;
 
-            case R.id.credito_menu:
-                //cadastrar creditos
-                break;
-
-            case R.id.debito_menu:
-                //cadastrar debitos
+            case R.id.lancamento_menu:
+                //cadastrar lancamentos
+                it = new Intent(MainActivity.this, LancamentoActivity.class);
+                startActivity(it);
                 break;
 
             case R.id.relatorio_menu:

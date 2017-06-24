@@ -103,7 +103,6 @@ public class CategoriaDAO {
         sql.append("data_cadastro datetime default current_timestamp not null, ");
         sql.append("foreign key(id_categoria) references categoria(_id) );");
         sqlQuerys.add(sql.toString());
-        sql = new StringBuilder();
         return sqlQuerys;
     }
 

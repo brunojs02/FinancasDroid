@@ -18,7 +18,9 @@
         </activity>
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.CategoriaActivity" />
-        <activity android:name=".activities.CrudCategoriaActivity"></activity>
+        <activity android:name=".activities.CrudCategoriaActivity" />
+        <activity android:name=".activities.LancamentoActivity" />
+        <activity android:name=".activities.CrudLancamentoActivity"></activity>
     </application>
 
 </manifest>

@@ -31,8 +31,8 @@ public class CrudCategoriaActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_crud_categoria);
         bInsere = (Button) findViewById(R.id.buttonInsereCategoria);
         bInsere.setOnClickListener(this);
-        eTCat = (EditText) findViewById(R.id.editTextCrudNomeCategoria);
-        spinnerCat = (Spinner) findViewById(R.id.spinnerCategoria);
+        eTCat = (EditText) findViewById(R.id.editTextCrudValorLancamento);
+        spinnerCat = (Spinner) findViewById(R.id.spinnerSubCategoria);
         ArrayAdapter<Categoria> adapterSpinner = new ArrayAdapter<Categoria>(this,
                 android.R.layout.simple_spinner_item, categoriaDAO.getCategorias());
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -1,15 +1,14 @@
 package arq.ifsp.js02.bruno.financasdroid.activities;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import java.util.List;
@@ -20,9 +19,8 @@ import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
 import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
 import arq.ifsp.js02.bruno.financasdroid.entities.SubCategoria;
 
-public class CategoriaActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class CategoriaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    Button bAddCategoria;
     ListView viewSubCategorias;
     CriaBanco banco;
     CategoriaDAO categoriaDAO;
@@ -34,11 +32,12 @@ public class CategoriaActivity extends AppCompatActivity implements View.OnClick
         banco = new CriaBanco(getBaseContext());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         setContentView(R.layout.activity_categoria);
-        bAddCategoria = (Button) findViewById(R.id.buttonAddCategoria);
-        bAddCategoria.setOnClickListener(this);
         viewSubCategorias = (ListView) findViewById(R.id.listViewCategorias);
         viewSubCategorias.setOnItemClickListener(this);
         atualizaSubCategoriasView();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void atualizaSubCategoriasView() {
@@ -49,20 +48,30 @@ public class CategoriaActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add, menu);
+        return true;
+    }
+
+    @Override
     protected void onRestart() {
         super.onRestart();
         atualizaSubCategoriasView();
     }
 
     @Override
-    public void onClick(View view) {
+    public boolean onOptionsItemSelected(MenuItem item){
         Intent it;
-        switch (view.getId()) {
-            case R.id.buttonAddCategoria:
+        switch (item.getItemId()) {
+            case R.id.menu_add:
                 it = new Intent(CategoriaActivity.this, CrudCategoriaActivity.class);
                 startActivity(it);
                 break;
+            case android.R.id.home:
+                finish();
+                break;
         }
+        return true;
     }
 
     @Override

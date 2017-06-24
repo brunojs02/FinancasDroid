@@ -6,18 +6,13 @@
         android:orderInCategory="100"/>
 
     <item
-        android:id="@+id/credito_menu"
-        android:title="@string/menu_credito"
+        android:id="@+id/lancamento_menu"
+        android:title="@string/menu_lancamento"
         android:orderInCategory="101"/>
-
-    <item
-        android:id="@+id/debito_menu"
-        android:title="@string/menu_debito"
-        android:orderInCategory="102"/>
 
     <item
         android:id="@+id/relatorio_menu"
         android:title="@string/menu_relatorio"
-        android:orderInCategory="103"/>
+        android:orderInCategory="102"/>
 
 </menu>

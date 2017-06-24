@@ -60,4 +60,9 @@ public class SubCategoria {
     public void setDataCadastro(Calendar dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

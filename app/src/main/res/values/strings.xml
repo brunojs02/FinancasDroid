@@ -2,15 +2,16 @@
     <string name="app_name">FinancasDroid</string>
     <!-- menus -->
     <string name="menu_categoria">Categorias</string>
-    <string name="menu_debito">Débitos</string>
-    <string name="menu_credito">Créditos</string>
+    <string name="menu_lancamento">Lançamentos</string>
     <string name="menu_relatorio">Relatório Mensal</string>
     <!-- labels -->
     <string name="data_cadastro">Data Inserção:</string>
     <!-- inputs -->
     <string name="input_categoria">Nome Categoria</string>
+    <string name="input_valor_lancamento">Valor Lançamento</string>
     <!-- botoes -->
     <string name="botao_logar">Logar</string>
     <string name="botao_registrar">Registre-se</string>
     <string name="botao_cadastrar_categoria">Cadastrar Categoria</string>
+    <string name="botao_cadastrar_lancamento">Cadastrar Lançamento</string>
 </resources>
