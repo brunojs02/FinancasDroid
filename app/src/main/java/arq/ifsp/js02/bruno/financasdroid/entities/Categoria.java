@@ -1,27 +1,28 @@
 package arq.ifsp.js02.bruno.financasdroid.entities;
 
-import java.util.Calendar;
-
 /**
- * Created by bruno on 22/06/17.
+ * Created by bruno on 23/06/17.
  */
 
 public class Categoria {
 
-    private Integer _id;
-    private Integer idCategoria;
+    private Integer id;
     private String nome;
-    private Calendar dataCadastro;
 
-    public Integer get_id() { return _id; }
+    public Categoria() {}
 
-    public void set_id(Integer _id) {
-        this._id = _id;
+    public Categoria(Integer id, String nome) {
+        this.id = id;
+        this.nome = nome;
     }
 
-    public Integer getIdCategoria() { return idCategoria; }
+    public Integer getId() {
+        return id;
+    }
 
-    public void setIdCategoria(Integer idCategoria) { this.idCategoria = idCategoria; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -31,11 +32,8 @@ public class Categoria {
         this.nome = nome;
     }
 
-    public Calendar getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(Calendar dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    @Override
+    public String toString() {
+        return nome;
     }
 }

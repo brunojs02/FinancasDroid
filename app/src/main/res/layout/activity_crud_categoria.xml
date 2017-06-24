@@ -7,7 +7,7 @@
     tools:context="arq.ifsp.js02.bruno.financasdroid.activities.CrudCategoriaActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextCrudNomeCategoria"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -47,7 +47,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCrudNomeCategoria"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 </android.support.constraint.ConstraintLayout>

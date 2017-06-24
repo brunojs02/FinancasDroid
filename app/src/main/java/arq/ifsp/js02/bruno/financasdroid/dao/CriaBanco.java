@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class CriaBanco extends SQLiteOpenHelper {
 
     private static final String NOME_BANCO = "financasdroid.db";
-    private static final Integer VERSAO_BANCO = 1;
+    private static final Integer VERSAO_BANCO = 7;
 
     public CriaBanco(Context context) {
         super(context, CriaBanco.NOME_BANCO, null, CriaBanco.VERSAO_BANCO);
@@ -19,12 +19,16 @@ public class CriaBanco extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CategoriaDAO.getCreateCategoria());
+        for (String sql:CategoriaDAO.getCreateCategoria()) {
+            db.execSQL(sql);
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(CategoriaDAO.getDropCategoria());
+        for (String sql:CategoriaDAO.getDropCategoria()) {
+            db.execSQL(sql);
+        }
         onCreate(db);
     }
 }

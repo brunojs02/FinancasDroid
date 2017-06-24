@@ -7,46 +7,47 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingTop="6dp">
 
         <TextView
-            android:id="@+id/textViewNomeCategoria"
+            android:id="@+id/textViewNomeSubCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="Supermercado"
-            android:textSize="16sp"/>
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textViewDataInsercao"
+            android:id="@+id/textViewDataInsercaoSubCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textViewNomeCategoria"
+            android:layout_alignBottom="@+id/textViewNomeSubCategoria"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:text="08/10/1994"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/textViewCalendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textViewDataInsercao"
-            android:layout_toLeftOf="@+id/textViewDataInsercao"
-            android:layout_toStartOf="@+id/textViewDataInsercao"
-            android:layout_marginRight="4dp"
-            android:text="TextView"
-            tools:text="@string/data_cadastro"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/textViewCategoria"
+        android:id="@+id/textViewNomeCategoria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingBottom="6dp"
         android:text="Credito/Debito"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewIdSubCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone" />
 
 </LinearLayout>
