@@ -8,10 +8,14 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import arq.ifsp.js02.bruno.financasdroid.entities.Categoria;
 import arq.ifsp.js02.bruno.financasdroid.entities.Lancamento;
+import arq.ifsp.js02.bruno.financasdroid.entities.Relatorio;
+import arq.ifsp.js02.bruno.financasdroid.entities.SpinnerCalendario;
 import arq.ifsp.js02.bruno.financasdroid.entities.SubCategoria;
 
 /**
@@ -56,7 +60,7 @@ public class LancamentoDAO {
                 Categoria categoria = new Categoria();
                 SubCategoria subCategoria = new SubCategoria();
                 lancamento.setId(cursor.getInt(0));
-                lancamento.setValor(cursor.getDouble(1));
+                lancamento.setValor(cursor.getFloat(1));
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 try {
@@ -76,11 +80,47 @@ public class LancamentoDAO {
         return lancamentos;
     }
 
+    public List<Relatorio> getRelatorioSubCategoria() {
+        StringBuilder sql = new StringBuilder();
+        List<Relatorio> relatorios = new ArrayList<>();
+        sql.append("select sub_categoria.nome, sum(lancamento.valor) from lancamento ");
+        sql.append("inner join sub_categoria on sub_categoria._id = lancamento.id_sub_categoria ");
+        sql.append("inner join categoria on categoria._id = sub_categoria.id_categoria ");
+        sql.append("group by sub_categoria._id;");
+        Cursor cursor = db.rawQuery(sql.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                relatorios.add(new Relatorio(cursor.getFloat(1), cursor.getString(0)));
+            }while (cursor.moveToNext());
+        }
+        return relatorios;
+    }
+
+    public List<Relatorio> getRelatorioCategoria(SpinnerCalendario spinnerCalendario) {
+        StringBuilder sql = new StringBuilder();
+        List<Relatorio> relatorios = new ArrayList<>();
+        sql.append("select categoria.nome, sum(lancamento.valor) from lancamento ");
+        sql.append("inner join sub_categoria on sub_categoria._id = lancamento.id_sub_categoria ");
+        sql.append("inner join categoria on categoria._id = sub_categoria.id_categoria ");
+        if (spinnerCalendario != null && spinnerCalendario.getCal() != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            sql.append("where strftime('%m', data_lancamento) = strftime('%m', '" +  sdf.format(spinnerCalendario.getCal().getTime()) + "') ");
+        }
+        sql.append("group by categoria._id;");
+        Cursor cursor = db.rawQuery(sql.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                relatorios.add(new Relatorio(cursor.getFloat(1), cursor.getString(0)));
+            }while (cursor.moveToNext());
+        }
+        return relatorios;
+    }
+
     public static String getCreateLancamento() {
         StringBuilder sql = new StringBuilder();
         sql.append("create table lancamento (");
         sql.append("_id Integer not null primary key autoincrement, ");
-        sql.append("valor double not null, ");
+        sql.append("valor float not null, ");
         sql.append("id_sub_categoria Integer not null, ");
         sql.append("data_lancamento datetime not null, ");
         sql.append("foreign key(id_sub_categoria) references sub_categoria(_id) );");

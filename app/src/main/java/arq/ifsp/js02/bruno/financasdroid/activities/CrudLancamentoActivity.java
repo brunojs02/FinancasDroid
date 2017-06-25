@@ -1,7 +1,10 @@
 package arq.ifsp.js02.bruno.financasdroid.activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,6 +50,19 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
         bInsere = (Button) findViewById(R.id.buttonInsereLancamento);
         bInsere.setOnClickListener(this);
         eValorLancamento = (EditText) findViewById(R.id.editTextCrudValorLancamento);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -55,7 +71,7 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
             case R.id.buttonInsereLancamento:
                 Lancamento lancamento = new Lancamento();
                 try {
-                    lancamento.setValor(Double.parseDouble(eValorLancamento.getText().toString()));
+                    lancamento.setValor(Float.parseFloat(eValorLancamento.getText().toString()));
                 }catch (Exception e){
                     Toast.makeText(this, "Informe uma valor para o lançamento", Toast.LENGTH_LONG).show();
                     return;

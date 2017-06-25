@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class CriaBanco extends SQLiteOpenHelper {
 
     private static final String NOME_BANCO = "financasdroid.db";
-    private static final Integer VERSAO_BANCO = 11;
+    private static final Integer VERSAO_BANCO = 12;
 
     public CriaBanco(Context context) {
         super(context, CriaBanco.NOME_BANCO, null, CriaBanco.VERSAO_BANCO);

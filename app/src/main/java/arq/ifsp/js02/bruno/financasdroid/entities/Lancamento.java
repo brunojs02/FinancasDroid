@@ -11,11 +11,11 @@ public class Lancamento {
     private Integer id;
     private Calendar data;
     private SubCategoria subCategoria;
-    private Double valor;
+    private Float valor;
 
     public Lancamento() {}
 
-    public Lancamento(Integer id, Calendar data, SubCategoria subCategoria, Double valor) {
+    public Lancamento(Integer id, Calendar data, SubCategoria subCategoria, Float valor) {
         this.id = id;
         this.data = data;
         this.subCategoria = subCategoria;
@@ -42,11 +42,11 @@ public class Lancamento {
         return subCategoria;
     }
 
-    public Double getValor() {
+    public Float getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(Float valor) {
         this.valor = valor;
     }
 
