@@ -19,7 +19,7 @@ import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
 import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
 import arq.ifsp.js02.bruno.financasdroid.entities.SubCategoria;
 
-public class CategoriaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class CategoriaActivity extends AppCompatActivity{
 
     ListView viewSubCategorias;
     CriaBanco banco;
@@ -33,7 +33,6 @@ public class CategoriaActivity extends AppCompatActivity implements AdapterView.
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         setContentView(R.layout.activity_categoria);
         viewSubCategorias = (ListView) findViewById(R.id.listViewCategorias);
-        viewSubCategorias.setOnItemClickListener(this);
         atualizaSubCategoriasView();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -72,11 +71,5 @@ public class CategoriaActivity extends AppCompatActivity implements AdapterView.
                 break;
         }
         return true;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        SubCategoria subCategoria = subCategorias.get(i);
-        Toast.makeText(this, subCategoria.getId().toString(), Toast.LENGTH_SHORT).show();
     }
 }
