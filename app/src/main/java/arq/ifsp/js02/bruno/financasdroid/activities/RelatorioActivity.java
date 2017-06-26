@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -26,12 +25,11 @@ import arq.ifsp.js02.bruno.financasdroid.R;
 import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
 import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
 import arq.ifsp.js02.bruno.financasdroid.dao.LancamentoDAO;
-import arq.ifsp.js02.bruno.financasdroid.entities.Categoria;
 import arq.ifsp.js02.bruno.financasdroid.entities.Relatorio;
 import arq.ifsp.js02.bruno.financasdroid.entities.RelatorioValorFormatter;
 import arq.ifsp.js02.bruno.financasdroid.entities.SpinnerCalendario;
 
-public class RelatorioMensalActivity extends AppCompatActivity implements View.OnClickListener{
+public class RelatorioActivity extends AppCompatActivity implements View.OnClickListener{
 
     CriaBanco banco;
     LancamentoDAO lancamentoDAO;
@@ -46,7 +44,7 @@ public class RelatorioMensalActivity extends AppCompatActivity implements View.O
         banco = new CriaBanco(getBaseContext());
         lancamentoDAO = new LancamentoDAO(banco.getWritableDatabase());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
-        setContentView(R.layout.activity_relatorio_mensal);
+        setContentView(R.layout.activity_relatorio);
         bFiltrar = (Button) findViewById(R.id.buttonFiltrar);
         bFiltrar.setOnClickListener(this);
         ActionBar actionBar = getSupportActionBar();

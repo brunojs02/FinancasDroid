@@ -11,32 +11,24 @@ import android.widget.EditText;
 import arq.ifsp.js02.bruno.financasdroid.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
-    EditText eTEmail, eTSenha;
-    Button bLogin, bCadastro;
+    Button bLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        eTEmail = (EditText) findViewById(R.id.editTextEmail);
-        eTSenha = (EditText) findViewById(R.id.editTextPassword);
-        bLogin = (Button) findViewById(R.id.buttonLogar);
-        bLogin.setOnClickListener(this);
-        bCadastro = (Button) findViewById(R.id.buttonRegistrar);
+        //bLogin = (Button) findViewById(R.id.buttonLogar);
+        //bLogin.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         Intent it;
         switch (view.getId()) {
-            case R.id.buttonLogar:
-                it = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(it);
-                break;
-            case R.id.buttonRegistrar:
-
-                break;
+//            case R.id.buttonLogar:
+//                it = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(it);
+//                break;
         }
     }
 }

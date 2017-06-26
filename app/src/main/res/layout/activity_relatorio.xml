@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="arq.ifsp.js02.bruno.financasdroid.activities.RelatorioMensalActivity">
+    tools:context="arq.ifsp.js02.bruno.financasdroid.activities.RelatorioActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

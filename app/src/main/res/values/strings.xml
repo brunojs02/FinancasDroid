@@ -3,7 +3,7 @@
     <!-- menus -->
     <string name="menu_categoria">Categorias</string>
     <string name="menu_lancamento">Lançamentos</string>
-    <string name="menu_relatorio">Relatório Mensal</string>
+    <string name="menu_relatorio">Relatório</string>
     <!-- labels -->
     <string name="data_cadastro">Data Inserção:</string>
     <!-- inputs -->

@@ -21,7 +21,7 @@
         <activity android:name=".activities.CrudCategoriaActivity" />
         <activity android:name=".activities.LancamentoActivity" />
         <activity android:name=".activities.CrudLancamentoActivity" />
-        <activity android:name=".activities.RelatorioMensalActivity"></activity>
+        <activity android:name=".activities.RelatorioActivity"></activity>
     </application>
 
 </manifest>

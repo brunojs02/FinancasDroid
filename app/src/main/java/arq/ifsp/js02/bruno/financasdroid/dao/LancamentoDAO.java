@@ -52,6 +52,8 @@ public class LancamentoDAO {
         if (idCategoria != null) {
             sql.append("where categoria._id = " + idCategoria + " ");
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sql.append("and strftime('%Y', data_lancamento) = strftime('%Y', '" +  sdf.format(Calendar.getInstance().getTime()) + "') ");
         sql.append("order by lancamento.data_lancamento desc;");
         Cursor cursor = db.rawQuery(sql.toString(), null);
         if (cursor.moveToFirst()) {
@@ -62,7 +64,6 @@ public class LancamentoDAO {
                 lancamento.setId(cursor.getInt(0));
                 lancamento.setValor(cursor.getFloat(1));
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 try {
                     calendar.setTime(sdf.parse(cursor.getString(2)));
                 }catch (Exception e) {
@@ -86,6 +87,8 @@ public class LancamentoDAO {
         sql.append("select sub_categoria.nome, sum(lancamento.valor) from lancamento ");
         sql.append("inner join sub_categoria on sub_categoria._id = lancamento.id_sub_categoria ");
         sql.append("inner join categoria on categoria._id = sub_categoria.id_categoria ");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sql.append("where strftime('%Y', data_lancamento) = strftime('%Y', '" +  sdf.format(Calendar.getInstance().getTime()) + "') ");
         sql.append("group by sub_categoria._id;");
         Cursor cursor = db.rawQuery(sql.toString(), null);
         if (cursor.moveToFirst()) {
@@ -102,9 +105,11 @@ public class LancamentoDAO {
         sql.append("select categoria.nome, sum(lancamento.valor) from lancamento ");
         sql.append("inner join sub_categoria on sub_categoria._id = lancamento.id_sub_categoria ");
         sql.append("inner join categoria on categoria._id = sub_categoria.id_categoria ");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (spinnerCalendario != null && spinnerCalendario.getCal() != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             sql.append("where strftime('%m', data_lancamento) = strftime('%m', '" +  sdf.format(spinnerCalendario.getCal().getTime()) + "') ");
+        }else{
+            sql.append("where strftime('%Y', data_lancamento) = strftime('%Y', '" +  sdf.format(Calendar.getInstance().getTime()) + "') ");
         }
         sql.append("group by categoria._id;");
         Cursor cursor = db.rawQuery(sql.toString(), null);
