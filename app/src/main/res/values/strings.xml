@@ -11,7 +11,6 @@
     <string name="input_valor_lancamento">Valor Lançamento</string>
     <!-- botoes -->
     <string name="botao_logar">Logar</string>
-    <string name="botao_registrar">Registre-se</string>
-    <string name="botao_cadastrar_categoria">Cadastrar Categoria</string>
-    <string name="botao_cadastrar_lancamento">Cadastrar Lançamento</string>
+    <string name="botao_cadastrar_categoria">Salvar Categoria</string>
+    <string name="botao_cadastrar_lancamento">Salvar Lançamento</string>
 </resources>

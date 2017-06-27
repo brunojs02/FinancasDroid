@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonInsereLancamento"
+        android:id="@+id/buttonSalvaLancamento"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="368dp"
         android:layout_height="wrap_content"

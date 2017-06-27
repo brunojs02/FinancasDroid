@@ -1,8 +1,11 @@
 package arq.ifsp.js02.bruno.financasdroid.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +34,7 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
     Spinner spinnerSubCategorias;
     Button bInsere;
     EditText eValorLancamento;
+    Lancamento lancamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
         banco = new CriaBanco(getBaseContext());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         lancamentoDAO = new LancamentoDAO(banco.getWritableDatabase());
+        Intent it = getIntent();
         setContentView(R.layout.activity_crud_lancamento);
         spinnerSubCategorias = (Spinner) findViewById(R.id.spinnerSubCategoria);
         List<SubCategoria> subCategorias = new ArrayList<SubCategoria>();
@@ -47,12 +52,50 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
                 android.R.layout.simple_spinner_item, subCategorias);
         adapterSubCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSubCategorias.setAdapter(adapterSubCategoria);
-        bInsere = (Button) findViewById(R.id.buttonInsereLancamento);
+        bInsere = (Button) findViewById(R.id.buttonSalvaLancamento);
         bInsere.setOnClickListener(this);
         eValorLancamento = (EditText) findViewById(R.id.editTextCrudValorLancamento);
+        Integer idLancamento = null;
+        if (it != null) {
+            idLancamento = it.getIntExtra("idLancamento", -1);
+            if (idLancamento != null && idLancamento != -1) {
+                //fazer busca lançamento
+                lancamento = lancamentoDAO.getLancamentoById(idLancamento);
+                if (lancamento != null && lancamento.getId() != null) {
+                    eValorLancamento.setText(String.valueOf(lancamento.getValor()));
+                } else {
+                    lancamento = new Lancamento();
+                }
+            } else {
+                lancamento = new Lancamento();
+            }
+        } else {
+            lancamento = new Lancamento();
+        }
+        if (lancamento.getId() != null) {
+            for (int i = 0; i < adapterSubCategoria.getCount(); i++) {
+                if (adapterSubCategoria.getItem(i).getId() != null) {
+                    if (lancamento.getSubCategoria().getId().equals(adapterSubCategoria.getItem(i).getId())) {
+                        spinnerSubCategorias.setSelection(i);
+                        break;
+                    }
+                }
+            }
+        }
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (lancamento != null && lancamento.getId() != null) {
+            super.onCreateOptionsMenu(menu);
+            MenuItem menuItem = menu.add(Menu.NONE, R.id.menu_del, Menu.NONE, "");
+            menuItem.setIcon(android.R.drawable.ic_menu_delete);
+            menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+        return true;
     }
 
     @Override
@@ -61,6 +104,9 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.menu_del:
+                apagarLancamento();
+                break;
         }
         return true;
     }
@@ -68,29 +114,52 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.buttonInsereLancamento:
-                Lancamento lancamento = new Lancamento();
-                try {
-                    lancamento.setValor(Float.parseFloat(eValorLancamento.getText().toString()));
-                }catch (Exception e){
-                    Toast.makeText(this, "Informe uma valor para o lançamento", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                SubCategoria subCategoria = (SubCategoria) spinnerSubCategorias.getSelectedItem();
-                if (subCategoria == null || subCategoria.getId() == null) {
-                    Toast.makeText(this, "Selecione uma categoria", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                lancamento.setSubCategoria(subCategoria);
-                String mensagem = null;
-                if (Boolean.TRUE.equals(lancamentoDAO.insere(lancamento))) {
-                    mensagem = "Lançamento salvo com sucesso";
-                } else {
-                    mensagem = "Problema ao salvar lançamento";
-                }
-                finish();
-                Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+            case R.id.buttonSalvaLancamento:
+                salvarLancamento();
                 break;
+        }
+    }
+
+    private void salvarLancamento() {
+        String mensagem = null;
+        try {
+            lancamento.setValor(Float.parseFloat(eValorLancamento.getText().toString()));
+        }catch (Exception e){
+            Toast.makeText(this, "Informe uma valor para o lançamento", Toast.LENGTH_LONG).show();
+            return;
+        }
+        SubCategoria subCategoria = (SubCategoria) spinnerSubCategorias.getSelectedItem();
+        if (subCategoria == null || subCategoria.getId() == null) {
+            Toast.makeText(this, "Selecione uma categoria", Toast.LENGTH_LONG).show();
+            return;
+        }
+        lancamento.setSubCategoria(subCategoria);
+        mensagem = null;
+        if (lancamento.getId() != null) {
+            if (Boolean.TRUE.equals(lancamentoDAO.update(lancamento))) {
+                mensagem = "Lançamento atualizado com sucesso";
+            } else {
+                mensagem = "Problema ao atualizar lançamento";
+            }
+        } else {
+            if (Boolean.TRUE.equals(lancamentoDAO.insere(lancamento))) {
+                mensagem = "Lançamento salvo com sucesso";
+            } else {
+                mensagem = "Problema ao salvar lançamento";
+            }
+        }
+        finish();
+        Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+    }
+
+    private void apagarLancamento() {
+        if (lancamento != null && lancamento.getId() != null) {
+            if (Boolean.TRUE.equals(lancamentoDAO.delete(lancamento))) {
+                Toast.makeText(this, "Lançamento deletado com sucesso", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "Erro ao deletar lançamento", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

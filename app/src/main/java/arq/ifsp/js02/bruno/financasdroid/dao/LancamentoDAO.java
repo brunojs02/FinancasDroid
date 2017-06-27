@@ -43,6 +43,28 @@ public class LancamentoDAO {
         return Boolean.FALSE;
     }
 
+    public Boolean update(Lancamento lancamento) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("valor", lancamento.getValor());
+        contentValues.put("id_sub_categoria", lancamento.getSubCategoria().getId());
+        String where = "_id = " + lancamento.getId();
+        long resultado = db.update("lancamento", contentValues, where, null);
+        if (resultado != -1) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    public Boolean delete(Lancamento lancamento) {
+        if (lancamento != null && lancamento.getId() != null) {
+            long resultado = db.delete("lancamento", "_id = " + lancamento.getId(), null);
+            if (resultado != -1) {
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
     public List<Lancamento> getLancamentos(Integer idCategoria) {
         List<Lancamento> lancamentos = new ArrayList<Lancamento>();
         StringBuilder sql = new StringBuilder();
@@ -119,6 +141,26 @@ public class LancamentoDAO {
             }while (cursor.moveToNext());
         }
         return relatorios;
+    }
+
+    public Lancamento getLancamentoById(Integer idLancamento) {
+        StringBuilder sql = new StringBuilder();
+        Lancamento lancamento = new Lancamento();
+        sql.append("select lancamento._id, lancamento.valor, sub_categoria.nome, sub_categoria._id from lancamento ");
+        sql.append("inner join sub_categoria on sub_categoria._id = lancamento.id_sub_categoria ");
+        sql.append("where lancamento._id = " + idLancamento + ";");
+        Cursor cursor = db.rawQuery(sql.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                SubCategoria subCategoria = new SubCategoria();
+                lancamento.setId(cursor.getInt(0));
+                lancamento.setValor(cursor.getFloat(1));
+                subCategoria.setNome(cursor.getString(2));
+                subCategoria.setId(cursor.getInt(3));
+                lancamento.setSubCategoria(subCategoria);
+            }while (cursor.moveToNext());
+        }
+        return lancamento;
     }
 
     public static String getCreateLancamento() {

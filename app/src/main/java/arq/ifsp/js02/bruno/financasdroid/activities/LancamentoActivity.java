@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import arq.ifsp.js02.bruno.financasdroid.dao.LancamentoDAO;
 import arq.ifsp.js02.bruno.financasdroid.entities.Categoria;
 import arq.ifsp.js02.bruno.financasdroid.entities.Lancamento;
 
-public class LancamentoActivity extends AppCompatActivity implements View.OnClickListener{
+public class LancamentoActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     Spinner spinnerCat;
     ListView viewLancamentos;
@@ -57,6 +59,7 @@ public class LancamentoActivity extends AppCompatActivity implements View.OnClic
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCat.setAdapter(adapterSpinner);
         viewLancamentos = (ListView) findViewById(R.id.listViewLancamentos);
+        viewLancamentos.setOnItemClickListener(this);
         atualizaLancamentos(null);
     }
 
@@ -104,6 +107,16 @@ public class LancamentoActivity extends AppCompatActivity implements View.OnClic
                 }
                 atualizaLancamentos(idCategoria);
                 break;
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Lancamento lancamento = (Lancamento) adapterView.getItemAtPosition(i);
+        if (lancamento != null && lancamento.getId() != null) {
+            Intent it = new Intent(LancamentoActivity.this, CrudLancamentoActivity.class);
+            it.putExtra("idLancamento", lancamento.getId());
+            startActivity(it);
         }
     }
 }
