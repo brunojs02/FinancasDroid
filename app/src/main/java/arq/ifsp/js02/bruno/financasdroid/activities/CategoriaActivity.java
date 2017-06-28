@@ -6,30 +6,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import arq.ifsp.js02.bruno.financasdroid.R;
 import arq.ifsp.js02.bruno.financasdroid.adapters.CategoriaAdapter;
-import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
-import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
+import arq.ifsp.js02.bruno.financasdroid.model.CategoriaDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.GerenciaBancoDAO;
 import arq.ifsp.js02.bruno.financasdroid.entities.SubCategoria;
 
 public class CategoriaActivity extends AppCompatActivity{
 
     ListView viewSubCategorias;
-    CriaBanco banco;
+    GerenciaBancoDAO banco;
     CategoriaDAO categoriaDAO;
     List<SubCategoria> subCategorias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        banco = new CriaBanco(getBaseContext());
+        banco = new GerenciaBancoDAO(getBaseContext());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         setContentView(R.layout.activity_categoria);
         viewSubCategorias = (ListView) findViewById(R.id.listViewCategorias);

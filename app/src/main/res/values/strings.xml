@@ -1,8 +1,10 @@
 <resources>
     <!-- developer -->
     <string-array name="developer_id">
-        <item>161133X</item>
         <item>bruno.js02@gmail.com</item>
+        <item>161133X</item>
+        <item>IFSP</item>
+        <item>ARQ</item>
     </string-array>
     <string name="app_name">FinancasDroid</string>
     <!-- menus -->

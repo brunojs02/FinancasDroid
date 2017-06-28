@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,15 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import arq.ifsp.js02.bruno.financasdroid.R;
-import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
-import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
-import arq.ifsp.js02.bruno.financasdroid.dao.LancamentoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.CategoriaDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.GerenciaBancoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.LancamentoDAO;
 import arq.ifsp.js02.bruno.financasdroid.entities.Lancamento;
 import arq.ifsp.js02.bruno.financasdroid.entities.SubCategoria;
 
 public class CrudLancamentoActivity extends AppCompatActivity implements View.OnClickListener{
 
-    CriaBanco banco;
+    GerenciaBancoDAO banco;
     CategoriaDAO categoriaDAO;
     LancamentoDAO lancamentoDAO;
     Spinner spinnerSubCategorias;
@@ -39,11 +37,45 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        banco = new CriaBanco(getBaseContext());
+        banco = new GerenciaBancoDAO(getBaseContext());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         lancamentoDAO = new LancamentoDAO(banco.getWritableDatabase());
-        Intent it = getIntent();
         setContentView(R.layout.activity_crud_lancamento);
+        inicializaComponentes();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (lancamento != null && lancamento.getId() != null) {
+            getMenuInflater().inflate(R.menu.menu_del, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.menu_del:
+                apagarLancamento();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonSalvaLancamento:
+                salvarLancamento();
+                break;
+        }
+    }
+
+    private void inicializaComponentes() {
+        Intent it = getIntent();
         spinnerSubCategorias = (Spinner) findViewById(R.id.spinnerSubCategoria);
         List<SubCategoria> subCategorias = new ArrayList<SubCategoria>();
         subCategorias.add(new SubCategoria(null, getBaseContext().getString(R.string.spinner_item_empty), null, null));
@@ -85,36 +117,6 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (lancamento != null && lancamento.getId() != null) {
-            getMenuInflater().inflate(R.menu.menu_del, menu);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.menu_del:
-                apagarLancamento();
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.buttonSalvaLancamento:
-                salvarLancamento();
-                break;
-        }
     }
 
     private void salvarLancamento() {

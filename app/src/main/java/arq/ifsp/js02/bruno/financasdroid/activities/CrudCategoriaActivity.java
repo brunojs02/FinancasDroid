@@ -1,10 +1,8 @@
 package arq.ifsp.js02.bruno.financasdroid.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,15 +12,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import arq.ifsp.js02.bruno.financasdroid.R;
-import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
-import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
+import arq.ifsp.js02.bruno.financasdroid.model.CategoriaDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.GerenciaBancoDAO;
 import arq.ifsp.js02.bruno.financasdroid.entities.Categoria;
 import arq.ifsp.js02.bruno.financasdroid.entities.SubCategoria;
 
 public class CrudCategoriaActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button bInsere;
-    CriaBanco banco;
+    GerenciaBancoDAO banco;
     EditText eTCat;
     Spinner spinnerCat;
     CategoriaDAO categoriaDAO;
@@ -30,7 +28,7 @@ public class CrudCategoriaActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        banco = new CriaBanco(getBaseContext());
+        banco = new GerenciaBancoDAO(getBaseContext());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         setContentView(R.layout.activity_crud_categoria);
         bInsere = (Button) findViewById(R.id.buttonInsereCategoria);

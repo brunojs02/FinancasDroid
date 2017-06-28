@@ -1,4 +1,4 @@
-package arq.ifsp.js02.bruno.financasdroid.dao;
+package arq.ifsp.js02.bruno.financasdroid.model;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import arq.ifsp.js02.bruno.financasdroid.entities.Categoria;
 import arq.ifsp.js02.bruno.financasdroid.entities.SubCategoria;

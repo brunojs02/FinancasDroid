@@ -23,16 +23,16 @@ import java.util.List;
 import java.util.Locale;
 
 import arq.ifsp.js02.bruno.financasdroid.R;
-import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
-import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
-import arq.ifsp.js02.bruno.financasdroid.dao.LancamentoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.CategoriaDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.GerenciaBancoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.LancamentoDAO;
 import arq.ifsp.js02.bruno.financasdroid.entities.Relatorio;
 import arq.ifsp.js02.bruno.financasdroid.entities.RelatorioValorFormatter;
 import arq.ifsp.js02.bruno.financasdroid.entities.SpinnerCalendario;
 
 public class RelatorioActivity extends AppCompatActivity implements View.OnClickListener{
 
-    CriaBanco banco;
+    GerenciaBancoDAO banco;
     LancamentoDAO lancamentoDAO;
     CategoriaDAO categoriaDAO;
     List<Relatorio> relatorios;
@@ -42,7 +42,7 @@ public class RelatorioActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        banco = new CriaBanco(getBaseContext());
+        banco = new GerenciaBancoDAO(getBaseContext());
         lancamentoDAO = new LancamentoDAO(banco.getWritableDatabase());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         setContentView(R.layout.activity_relatorio);

@@ -12,16 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import arq.ifsp.js02.bruno.financasdroid.R;
 import arq.ifsp.js02.bruno.financasdroid.adapters.LancamentoAdapter;
-import arq.ifsp.js02.bruno.financasdroid.dao.CategoriaDAO;
-import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
-import arq.ifsp.js02.bruno.financasdroid.dao.LancamentoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.CategoriaDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.GerenciaBancoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.LancamentoDAO;
 import arq.ifsp.js02.bruno.financasdroid.entities.Categoria;
 import arq.ifsp.js02.bruno.financasdroid.entities.Lancamento;
 
@@ -32,13 +31,13 @@ public class LancamentoActivity extends AppCompatActivity implements View.OnClic
     Button bFiltrar;
     CategoriaDAO categoriaDAO;
     LancamentoDAO lancamentoDAO;
-    CriaBanco banco;
+    GerenciaBancoDAO banco;
     List<Lancamento> lancamentos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        banco = new CriaBanco(getBaseContext());
+        banco = new GerenciaBancoDAO(getBaseContext());
         categoriaDAO = new CategoriaDAO(banco.getWritableDatabase());
         lancamentoDAO = new LancamentoDAO(banco.getWritableDatabase());
         lancamentos = new ArrayList<Lancamento>();

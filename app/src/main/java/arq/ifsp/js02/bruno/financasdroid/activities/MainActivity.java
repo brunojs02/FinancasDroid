@@ -1,16 +1,12 @@
 package arq.ifsp.js02.bruno.financasdroid.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -22,21 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import arq.ifsp.js02.bruno.financasdroid.R;
-import arq.ifsp.js02.bruno.financasdroid.dao.CriaBanco;
-import arq.ifsp.js02.bruno.financasdroid.dao.LancamentoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.GerenciaBancoDAO;
+import arq.ifsp.js02.bruno.financasdroid.model.LancamentoDAO;
 import arq.ifsp.js02.bruno.financasdroid.entities.Relatorio;
 import arq.ifsp.js02.bruno.financasdroid.entities.RelatorioValorFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
-    CriaBanco banco;
+    GerenciaBancoDAO banco;
     LancamentoDAO lancamentoDAO;
     List<Relatorio> relatorios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        banco = new CriaBanco(getBaseContext());
+        banco = new GerenciaBancoDAO(getBaseContext());
         lancamentoDAO = new LancamentoDAO(banco.getWritableDatabase());
         setContentView(R.layout.main_activity);
         setupPieChart();
