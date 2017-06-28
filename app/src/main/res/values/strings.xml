@@ -1,4 +1,9 @@
 <resources>
+    <!-- developer -->
+    <string-array name="developer_id">
+        <item>161133X</item>
+        <item>bruno.js02@gmail.com</item>
+    </string-array>
     <string name="app_name">FinancasDroid</string>
     <!-- menus -->
     <string name="menu_categoria">Categorias</string>
@@ -6,6 +11,19 @@
     <string name="menu_relatorio">Relatório</string>
     <!-- labels -->
     <string name="data_cadastro">Data Inserção:</string>
+    <string name="relatorio">Relatório</string>
+    <string name="categoria_salva">Categoria salva com sucesso</string>
+    <string name="categoria_erro_salvar">Erro ao salvar categoria</string>
+    <string name="spinner_item_empty">Selecione...</string>
+    <string name="lancamento_sem_valor">Informe um valor para o lançamento</string>
+    <string name="categoria_empty">Selecione uma categoria</string>
+    <string name="lancamento_salvo">Lançamento realizado com sucesso</string>
+    <string name="lancamento_nao_salvo">Problema ao realizar lançamento</string>
+    <string name="lancamento_alterado">Lançamento atualizado com sucesso</string>
+    <string name="lancamento_nao_alterado">Problema ao atualizar lançamento</string>
+    <string name="lancamento_deletado">Lançamento deletado com sucesso</string>
+    <string name="lancamento_nao_deletado">Problema ao deletar lançamento</string>
+    <string name="lancamentos_empty">Não existe lançamentos</string>
     <!-- inputs -->
     <string name="input_categoria">Nome Categoria</string>
     <string name="input_valor_lancamento">Valor Lançamento</string>
@@ -13,4 +31,5 @@
     <string name="botao_logar">Logar</string>
     <string name="botao_cadastrar_categoria">Salvar Categoria</string>
     <string name="botao_cadastrar_lancamento">Salvar Lançamento</string>
+    <string name="botao_filtrar">Filtrar</string>
 </resources>

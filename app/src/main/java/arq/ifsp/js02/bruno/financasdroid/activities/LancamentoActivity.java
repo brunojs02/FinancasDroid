@@ -51,7 +51,7 @@ public class LancamentoActivity extends AppCompatActivity implements View.OnClic
         spinnerCat = (Spinner) findViewById(R.id.spinnerSubCategoria);
         List<Categoria> categorias = new ArrayList<Categoria>();
         Categoria categoria = new Categoria();
-        categoria.setNome("Selecione...");
+        categoria.setNome(getBaseContext().getString(R.string.spinner_item_empty));
         categorias.add(categoria);
         categorias.addAll(categoriaDAO.getCategorias());
         ArrayAdapter<Categoria> adapterSpinner = new ArrayAdapter<Categoria>(this,

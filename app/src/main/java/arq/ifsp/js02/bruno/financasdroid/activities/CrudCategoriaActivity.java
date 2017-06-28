@@ -66,9 +66,9 @@ public class CrudCategoriaActivity extends AppCompatActivity implements View.OnC
                 subCategoria.getCategoria().setId(((Categoria) spinnerCat.getSelectedItem()).getId());
                 String mensagem = null;
                 if (Boolean.TRUE.equals(categoriaDAO.insere(subCategoria))) {
-                    mensagem = "SubCategoria salva com sucesso";
+                    mensagem = getBaseContext().getString(R.string.categoria_salva);
                 } else {
-                    mensagem = "Problema ao salvar categoria";
+                    mensagem = getBaseContext().getString(R.string.categoria_erro_salvar);
                 }
                 finish();
                 Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -83,8 +84,18 @@ public class RelatorioActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void setupPieChart(SpinnerCalendario spinnerCalendario) {
-        List<PieEntry> pieEntries = new ArrayList<>();
+        PieChart pieChart = (PieChart) findViewById(R.id.chartRelatorioMensal);
+        TextView textView = (TextView) findViewById(R.id.textViewEmpty);
         relatorios = lancamentoDAO.getRelatorioCategoria(spinnerCalendario);
+        if (relatorios.size() == 0) {
+            textView.setVisibility(View.VISIBLE);
+            pieChart.setVisibility(View.INVISIBLE);
+            return;
+        } else {
+            textView.setVisibility(View.INVISIBLE);
+            pieChart.setVisibility(View.VISIBLE);
+        }
+        List<PieEntry> pieEntries = new ArrayList<>();
         for(Relatorio relatorio:relatorios) {
             pieEntries.add(new PieEntry(relatorio.getValor(), relatorio.getTitulo()));
         }
@@ -93,7 +104,6 @@ public class RelatorioActivity extends AppCompatActivity implements View.OnClick
         pieDataSet.setValueTextSize(18);
         pieDataSet.setValueFormatter(new RelatorioValorFormatter());
         PieData pieData = new PieData(pieDataSet);
-        PieChart pieChart = (PieChart) findViewById(R.id.chartRelatorioMensal);
         pieChart.setData(pieData);
         pieChart.setEntryLabelTextSize(18);
         pieChart.invalidate();

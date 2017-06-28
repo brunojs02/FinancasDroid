@@ -46,7 +46,7 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_crud_lancamento);
         spinnerSubCategorias = (Spinner) findViewById(R.id.spinnerSubCategoria);
         List<SubCategoria> subCategorias = new ArrayList<SubCategoria>();
-        subCategorias.add(new SubCategoria(null, "Selecione...", null, null));
+        subCategorias.add(new SubCategoria(null, getBaseContext().getString(R.string.spinner_item_empty), null, null));
         subCategorias.addAll(categoriaDAO.getSubCategorias());
         ArrayAdapter<SubCategoria> adapterSubCategoria = new ArrayAdapter<SubCategoria>(this,
                 android.R.layout.simple_spinner_item, subCategorias);
@@ -90,10 +90,7 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (lancamento != null && lancamento.getId() != null) {
-            super.onCreateOptionsMenu(menu);
-            MenuItem menuItem = menu.add(Menu.NONE, R.id.menu_del, Menu.NONE, "");
-            menuItem.setIcon(android.R.drawable.ic_menu_delete);
-            menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            getMenuInflater().inflate(R.menu.menu_del, menu);
         }
         return true;
     }
@@ -125,27 +122,27 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
         try {
             lancamento.setValor(Float.parseFloat(eValorLancamento.getText().toString()));
         }catch (Exception e){
-            Toast.makeText(this, "Informe uma valor para o lançamento", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getBaseContext().getString(R.string.lancamento_sem_valor), Toast.LENGTH_LONG).show();
             return;
         }
         SubCategoria subCategoria = (SubCategoria) spinnerSubCategorias.getSelectedItem();
         if (subCategoria == null || subCategoria.getId() == null) {
-            Toast.makeText(this, "Selecione uma categoria", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getBaseContext().getString(R.string.categoria_empty), Toast.LENGTH_LONG).show();
             return;
         }
         lancamento.setSubCategoria(subCategoria);
         mensagem = null;
         if (lancamento.getId() != null) {
             if (Boolean.TRUE.equals(lancamentoDAO.update(lancamento))) {
-                mensagem = "Lançamento atualizado com sucesso";
+                mensagem = getBaseContext().getString(R.string.lancamento_alterado);
             } else {
-                mensagem = "Problema ao atualizar lançamento";
+                mensagem = getBaseContext().getString(R.string.lancamento_nao_alterado);
             }
         } else {
             if (Boolean.TRUE.equals(lancamentoDAO.insere(lancamento))) {
-                mensagem = "Lançamento salvo com sucesso";
+                mensagem = getBaseContext().getString(R.string.lancamento_salvo);
             } else {
-                mensagem = "Problema ao salvar lançamento";
+                mensagem = getBaseContext().getString(R.string.lancamento_nao_salvo);
             }
         }
         finish();
@@ -155,10 +152,10 @@ public class CrudLancamentoActivity extends AppCompatActivity implements View.On
     private void apagarLancamento() {
         if (lancamento != null && lancamento.getId() != null) {
             if (Boolean.TRUE.equals(lancamentoDAO.delete(lancamento))) {
-                Toast.makeText(this, "Lançamento deletado com sucesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getBaseContext().getString(R.string.lancamento_deletado), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Toast.makeText(this, "Erro ao deletar lançamento", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getBaseContext().getString(R.string.lancamento_nao_deletado), Toast.LENGTH_SHORT).show();
             }
         }
     }
