@@ -22,7 +22,6 @@
         <activity android:name=".activities.LancamentoActivity" />
         <activity android:name=".activities.CrudLancamentoActivity" />
         <activity android:name=".activities.RelatorioActivity" />
-        <activity android:name=".activities.DateActivity"></activity>
     </application>
 
 </manifest>
